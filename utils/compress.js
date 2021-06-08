@@ -29,7 +29,7 @@ const compressImages = async (req, res, next) => {
   next();
 };
 
-const compressDirectory = async (req, res, next) => {
+const compressDirectory = (req, res, next) => {
   const path = resolve(finish);
 
   zip.addLocalFolder(path);
@@ -38,7 +38,7 @@ const compressDirectory = async (req, res, next) => {
   next();
 };
 
-const unlinkFiles = async (req, res, next) => {
+const unlinkFiles = (req, res, next) => {
   const dirs = [
     { path: resolve(start), files: fs.readdirSync(start) },
     { path: resolve(finish), files: fs.readdirSync(finish) },
