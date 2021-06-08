@@ -31,7 +31,6 @@ const compressImages = async (req, res, next) => {
 
 const compressDirectory = (req, res, next) => {
   const path = resolve(finish);
-
   zip.addLocalFolder(path);
   req.zipFile = zip.toBuffer();
 
