@@ -59,7 +59,7 @@ const setupZipUnlink = (req, res, next) => {
   res.on("finish", () =>
     fs.unlink(req.zipFilePath, (err) => (err ? err : null))
   );
-  
+
   next();
 };
 
