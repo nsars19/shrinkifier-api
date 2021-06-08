@@ -1,7 +1,6 @@
 const fs = require("fs");
 const sharp = require("sharp");
 const AdmZip = require("adm-zip");
-const zip = new AdmZip();
 const { resolve, join } = require("path");
 const [start, finish] = ["./tmp/unprocessed/", "./tmp/processed/"];
 
@@ -30,6 +29,7 @@ const compressImages = async (req, res, next) => {
 };
 
 const compressDirectory = (req, res, next) => {
+  const zip = new AdmZip();
   const path = resolve(finish);
   const files = fs.readdirSync(path);
   files.forEach((file) => zip.addLocalFile(join(path, file)));
