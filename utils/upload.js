@@ -31,4 +31,4 @@ function checkFileType(file) {
   return types.test(file.mimetype);
 }
 
-module.exports = multer({ storage: storage }).array("files", 10);
+module.exports = multer({ storage: storage }).array("files", 50);
