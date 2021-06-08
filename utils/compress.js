@@ -39,19 +39,18 @@ const compressDirectory = async (req, res, next) => {
 };
 
 const unlinkFiles = async (req, res, next) => {
-  const startNames = fs.readdirSync(start);
-  const finishNames = fs.readdirSync(finish);
+  const dirs = [
+    { path: resolve(start), files: fs.readdirSync(start) },
+    { path: resolve(finish), files: fs.readdirSync(finish) },
+  ];
 
-  startNames.forEach((file) =>
-    fs.unlink(resolve(start) + "/" + file, (err) => {
-      if (err) console.error(err);
-    })
-  );
-  finishNames.forEach((file) =>
-    fs.unlink(resolve(finish) + "/" + file, (err) => {
-      if (err) console.error(err);
-    })
-  );
+  for (const { path, files } of dirs) {
+    for (const file of files) {
+      fs.unlink(`${path}/${file}`, (err) => {
+        if (err) console.error(err);
+      });
+    }
+  }
 
   next();
 };
