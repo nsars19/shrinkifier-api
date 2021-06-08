@@ -2,8 +2,7 @@ const fs = require("fs");
 const sharp = require("sharp");
 const AdmZip = require("adm-zip");
 const zip = new AdmZip();
-const { resolve } = require("path");
-
+const { resolve, join } = require("path");
 const [start, finish] = ["./tmp/unprocessed/", "./tmp/processed/"];
 
 async function shrinkifier(images, startPath, endPath) {
@@ -31,8 +30,10 @@ const compressImages = async (req, res, next) => {
 
 const compressDirectory = (req, res, next) => {
   const path = resolve(finish);
-  zip.addLocalFolder(path);
-  req.zipFile = zip.toBuffer();
+  const files = fs.readdirSync(path);
+  files.forEach((file) => zip.addLocalFile(join(path, file)));
+  zip.writeZip("tmp/tinified.zip");
+  req.zipFilePath = resolve("./tmp/tinified.zip");
 
   next();
 };
