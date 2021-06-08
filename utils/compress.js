@@ -55,4 +55,8 @@ const unlinkFiles = (req, res, next) => {
   next();
 };
 
+exports.unlinkZip = (req) => {
+  fs.unlink(req.zipFilePath, (err) => (err ? err : null));
+};
+
 exports.processingHandler = [compressImages, compressDirectory, unlinkFiles];
