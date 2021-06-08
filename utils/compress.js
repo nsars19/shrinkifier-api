@@ -13,7 +13,7 @@ async function shrinkifier(images, startPath, endPath) {
 
   for (const image of images) {
     await sharp(startPath + image)
-      .jpeg({ quality: 60 })
+      .jpeg({ mozjpeg: true, quality: 60 })
       .toFile(`${endPath}${image.split(".")[0]}.jpeg`);
   }
 }
