@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
     isGoodType ? cb(null, true) : cb(null, false);
   },
   limits: {
-    fileSize: 6000000,
+    fileSize: 10000000,
   },
 });
 
