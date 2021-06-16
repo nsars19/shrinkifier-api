@@ -15,7 +15,8 @@ async function shrinkifier(images, startPath, endPath, opts) {
   //   width: 1080,
   //   height: undefined to maintain aspect ratio
 
-  const { format, quality, width, height } = opts;
+  const { quality, width, height } = opts;
+  const format = opts.format || "jpeg";
   const imgOptions = { quality: parseInt(quality) || 60 };
 
   for (const image of images) {
@@ -25,7 +26,7 @@ async function shrinkifier(images, startPath, endPath, opts) {
     );
 
     // Dynamically calls formatting method based on user-supplied option, else use default
-    await img[format || "jpeg"](imgOptions).toFile(
+    await img[format](imgOptions).toFile(
       `${endPath}${image.split(".")[0]}.${format}`
     );
   }
