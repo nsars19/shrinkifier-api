@@ -13,7 +13,7 @@ async function shrinkifier(images, startPath, endPath, opts) {
   //   format: jpeg,
   //   quality: 60,
   //   width: 1080,
-  //   height: undefined to maintain aspect ratio
+  //   height: null to maintain aspect ratio
 
   const { quality, width, height } = opts;
   const format = opts.format || "jpeg";
