@@ -39,9 +39,13 @@ const compressImages = async (req, res, next) => {
   });
 
   const options = JSON.parse(req.body.options);
-  await shrinkifier(files, start, finish, options);
-
-  next();
+  try {
+    await shrinkifier(files, start, finish, options);
+    next();
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
 };
 
 const compressDirectory = (req, res, next) => {
