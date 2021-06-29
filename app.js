@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.post("/", upload, processingHandler, (req, res) => {
+app.post("/api/compress", upload, processingHandler, (req, res) => {
   res.sendFile(req.zipFilePath);
 });
 
