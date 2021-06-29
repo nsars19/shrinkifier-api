@@ -25,7 +25,8 @@ async function shrinkifier(images, opts) {
       parseInt(height) || null
     );
 
-    // Dynamically calls formatting method based on user-supplied option, else use default
+    // Use computed property to determine which formatting function to call on sharp object
+    // eg. typeof img["jpeg"] === "function"
     await img[format](imgOptions).toFile(
       `${finish}${image.split(".")[0]}.${format}`
     );
