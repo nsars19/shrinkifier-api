@@ -79,7 +79,9 @@ const unlinkFiles = (req, res, next) => {
 
 const setupZipUnlink = (req, res, next) => {
   res.on("finish", () =>
-    fs.unlink(req.zipFilePath, (err) => console.error(err))
+    fs.unlink(req.zipFilePath, (err) => {
+      if (err) console.error(err);
+    })
   );
 
   next();
