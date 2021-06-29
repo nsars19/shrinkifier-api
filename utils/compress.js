@@ -4,9 +4,9 @@ const AdmZip = require("adm-zip");
 const { resolve, join } = require("path");
 const [start, finish] = ["./tmp/unprocessed/", "./tmp/processed/"];
 
-async function shrinkifier(images, startPath, endPath, opts) {
-  if (!fs.existsSync(endPath)) {
-    fs.mkdirSync(endPath, { recursive: true });
+async function shrinkifier(images, opts) {
+  if (!fs.existsSync(finish)) {
+    fs.mkdirSync(finish, { recursive: true });
   }
 
   // Defaults are:
@@ -20,14 +20,14 @@ async function shrinkifier(images, startPath, endPath, opts) {
   const imgOptions = { quality: parseInt(quality) || 60 };
 
   for (const image of images) {
-    const img = await sharp(startPath + image).resize(
+    const img = await sharp(start + image).resize(
       parseInt(width) || 1080,
       parseInt(height) || null
     );
 
     // Dynamically calls formatting method based on user-supplied option, else use default
     await img[format](imgOptions).toFile(
-      `${endPath}${image.split(".")[0]}.${format}`
+      `${finish}${image.split(".")[0]}.${format}`
     );
   }
 }
@@ -40,7 +40,7 @@ const compressImages = async (req, res, next) => {
 
   const options = JSON.parse(req.body.options);
   try {
-    await shrinkifier(files, start, finish, options);
+    await shrinkifier(files, options);
     next();
   } catch (err) {
     console.error(err);
