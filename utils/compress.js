@@ -45,6 +45,7 @@ const compressImages = async (req, res, next) => {
     next();
   } catch (err) {
     console.error(err);
+    unlinkFiles(req, res);
     res.sendStatus(500);
   }
 };
@@ -60,7 +61,7 @@ const compressDirectory = (req, res, next) => {
   next();
 };
 
-const unlinkFiles = (req, res, next) => {
+const unlinkFiles = (req, res, next = null) => {
   const dirs = [
     { path: resolve(start), files: fs.readdirSync(start) },
     { path: resolve(finish), files: fs.readdirSync(finish) },
@@ -74,7 +75,7 @@ const unlinkFiles = (req, res, next) => {
     }
   }
 
-  next();
+  if (next) next();
 };
 
 const setupZipUnlink = (req, res, next) => {
