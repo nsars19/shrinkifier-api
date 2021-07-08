@@ -14,4 +14,6 @@ app.post("/api/compress", upload, processingHandler, (req, res) => {
   res.sendFile(req.zipFilePath);
 });
 
+app.use("/", (_, res) => res.sendStatus(404));
+
 module.exports = app;
